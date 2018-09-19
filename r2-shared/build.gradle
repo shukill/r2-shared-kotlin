@@ -11,7 +11,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.readium'
+
+group = "com.github.codetoart"
+version = "1.0.3-1"
 
 android {
     flavorDimensions "testapp"
@@ -43,10 +45,13 @@ android {
         devTestappWithLcp {
             dimension "testapp"
         }
+        devFolioReader {
+            dimension "testapp"
+        }
     }
 
     // default build flavour
-    defaultPublishConfig "intTestappDebug"
+    defaultPublishConfig "devFolioReaderRelease"
 }
 
 dependencies {
@@ -69,4 +74,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+}
+
+// build a jar with source files
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
 }
