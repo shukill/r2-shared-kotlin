@@ -78,6 +78,8 @@ class Publication : Serializable {
      *      use it to check the type on your implementation
      *
      */
+
+    // Navigator Type
     enum class TYPE {
         EPUB, CBZ, FXL, WEBPUB, AUDIO
     }
@@ -86,6 +88,7 @@ class Publication : Serializable {
         fun fromString(type: T) = valueMap[type]
     }
 
+    // Parser Type
     enum class EXTENSION(var value: String) {
         EPUB(".epub"),
         CBZ(".cbz"),
@@ -120,6 +123,10 @@ class Publication : Serializable {
     /// Extension point for links that shouldn't show up in the manifest.
     var otherLinks: MutableList<Link> = mutableListOf()
     var internalData: MutableMap<String, String> = mutableMapOf()
+
+    var userSettingsUIPreset: MutableMap<ReadiumCSSName, Boolean> = mutableMapOf()
+
+    var cssStyle: String? = null
 
     var coverLink: Link? = null
         get() = linkWithRel("cover")
@@ -183,6 +190,7 @@ class Publication : Serializable {
     }
 
 }
+
 
 /**
  * Parse a JSON dictionary of extra information into a publication
